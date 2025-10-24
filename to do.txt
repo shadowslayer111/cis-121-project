@@ -1,0 +1,9 @@
+﻿Things to do:
+where the enemy ship is
+where the player has attacked
+make sure enemy ship doesn’t go out of bounds
+Different markets for hit and miss
+keep track of the board
+use an array for the gameboard
+figure how to use arrays
+
