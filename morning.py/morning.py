@@ -39,18 +39,6 @@ def make_enemy():
     inital_enemy_placement_collum = random.randint(1,5)
     enemy_rotation = random.randint(0,3)
 #For if inital placement is on the edge to prevent going past the playable area
-if inital_enemy_placement_row == 1:
-    enemy_rotation = random.randint(1,3)
-elif inital_enemy_placement_row == 5:
-    enemy_rotation = random.randint(0,2)
-    if enemy_rotation == 2:
-        enemy_rotation = 3
-if inital_enemy_placement_collum == 1:
-    enemy_rotation = random.randint(0,2)
-elif inital_enemy_placement_collum == 5:
-    enemy_rotation = random.randint(0,2)
-    if enemy_rotation == 1:
-        enemy_rotation = 3
     if inital_enemy_placement_row == 1:
         enemy_rotation = random.randint(1,3)
     elif inital_enemy_placement_row == 5:
@@ -63,18 +51,30 @@ elif inital_enemy_placement_collum == 5:
         enemy_rotation = random.randint(0,2)
         if enemy_rotation == 1:
             enemy_rotation = 3
+        if inital_enemy_placement_row == 1:
+            enemy_rotation = random.randint(1,3)
+        elif inital_enemy_placement_row == 5:
+            enemy_rotation = random.randint(0,2)
+            if enemy_rotation == 2:
+                enemy_rotation = 3
+    if inital_enemy_placement_collum == 1:
+        enemy_rotation = random.randint(0,2)
+    elif inital_enemy_placement_collum == 5:
+        enemy_rotation = random.randint(0,2)
+        if enemy_rotation == 1:
+            enemy_rotation = 3
 #For edge cases if the selection is in the corner
-if inital_enemy_placement_row == 1 and inital_enemy_placement_collum == 1:
-    enemy_rotation = random.randint(2,3)
-elif inital_enemy_placement_row == 1 and inital_enemy_placement_collum == 5:
-    enemy_rotation = random.randint(1,2)
-elif inital_enemy_placement_row == 5 and inital_enemy_placement_collum == 1:
-    enemy_rotation = random.randint(0,1)
-elif inital_enemy_placement_row == 5 and inital_enemy_placement_collum == 5:
-    enemy_rotation = random.randint(0,1)
+    if inital_enemy_placement_row == 1 and inital_enemy_placement_collum == 1:
+        enemy_rotation = random.randint(2,3)
+    elif inital_enemy_placement_row == 1 and inital_enemy_placement_collum == 5:
+        enemy_rotation = random.randint(1,2)
+    elif inital_enemy_placement_row == 5 and inital_enemy_placement_collum == 1:
+        enemy_rotation = random.randint(0,1)
+    elif inital_enemy_placement_row == 5 and inital_enemy_placement_collum == 5:
+        enemy_rotation = random.randint(0,1)
     if enemy_rotation == 1:
         enemy_rotation = 3
-print(inital_enemy_placement_row,inital_enemy_placement_collum,enemy_rotation)
+    print(inital_enemy_placement_row,inital_enemy_placement_collum,enemy_rotation)
     if inital_enemy_placement_row == 1 and inital_enemy_placement_collum == 1:
         enemy_rotation = random.randint(2,3)
     elif inital_enemy_placement_row == 1 and inital_enemy_placement_collum == 5:
@@ -88,7 +88,7 @@ print(inital_enemy_placement_row,inital_enemy_placement_collum,enemy_rotation)
     enemy_placement = [f"{inital_enemy_placement_row},{inital_enemy_placement_collum}"]
     enemy_placement.append(str(rotation_num_to_position(enemy_placement,enemy_rotation)))
     return enemy_placement
- print(make_enemy())
+print(make_enemy())
 
 #Function to check if the guess is a hit or miss
 def check_hit(guess, enemy_positions):
