@@ -14,13 +14,13 @@ game_board = create_board(5) #hardcodes the gameboard size, maybe make it dynami
 #Very jankey way to do exention with 0 being up,1 being right,2 being down and 3 being left
 def rotation_num_to_position(inital_pos,rotation_num):
     if rotation_num == 0:
-        extention_position = int(inital_pos[0][0]) + 1
+        extention_position = int(inital_pos[0][0]) - 1
         return f"{extention_position},{inital_pos[0][2]}"
     if rotation_num == 1:
         extention_position = int(inital_pos[0][2]) + 1
         return f"{inital_pos[0][0]},{extention_position}"
     if rotation_num == 2:
-        extention_position = int(inital_pos[0][0]) - 1
+        extention_position = int(inital_pos[0][0]) + 1
         return f"{extention_position},{inital_pos[0][2]}"
     if rotation_num == 3:
         extention_position = int(inital_pos[0][2]) - 1
@@ -151,34 +151,31 @@ def play_game():
     #Rating based on how many turns it took
     if turns <= 5:
         print("Rating: AMAZING! You got lucky!")
-        with open("score.csv","w") as scorefile:
-            scorefile.readlines
+        with open("score.csv","a") as scorefile:
             scorefile.write(f"{gamenumber},{turns}\n")
-        scorefile.close
+        scorefile.close()
     elif turns <= 10:
         print("Rating: Great job!")
-        with open("score.csv","w") as scorefile:
-            scorefile.readlines
+        with open("score.csv","a") as scorefile:
             scorefile.write(f"{gamenumber},{turns}\n")
-            scorefile.close
+            scorefile.close()
     elif turns <= 15:
         print("Rating: Good work!")
-        with open("score.csv","w") as scorefile:
-            scorefile.readlines
+        with open("score.csv","a") as scorefile:
             scorefile.write(f"{gamenumber},{turns}\n")
-        scorefile.close
+        scorefile.close()
     else:
         print("Rating: You got there eventually!")
-        with open("score.csv","w") as scorefile:
-            scorefile.readlines
+        with open("score.csv","a") as scorefile:
             scorefile.write(f"{gamenumber},{turns}\n")
-        scorefile.close
+        scorefile.close()
 
 #Ask if player wants to play again
 gamenumber = 1
 play_again = "yes"
 scorefile = open("score.csv","w")
-scorefile.close
+scorefile.write("Gamenumber,Turns")
+scorefile.close()
 while play_again == "yes":
     play_game()
     print()
