@@ -11,7 +11,7 @@ def print_gameboard(gameboard): #prints the gameboard when the gameboard is pass
             print(gameboard[row,collom],end="  ")
         print()
 game_board = create_board(5) #hardcodes the gameboard size, maybe make it dynamic later
-
+#Very jankey way to do exention with 0 being up,1 being right,2 being down and 3 being left
 def rotation_num_to_position(inital_pos,rotation_num):
     if rotation_num == 0:
         extention_position = int(inital_pos[0][0]) + 1
@@ -57,20 +57,11 @@ def make_enemy():
         if enemy_rotation == 1:
             enemy_rotation = 3
     #For edge cases if the selection is in the corner
+    #Very jankey way to do exention with 0 being up,1 being right,2 being down and 3 being left
     if inital_enemy_placement_row == 1 and inital_enemy_placement_collum == 1:
-        enemy_rotation = random.randint(2,3)
-    elif inital_enemy_placement_row == 1 and inital_enemy_placement_collum == 5:
         enemy_rotation = random.randint(1,2)
-    elif inital_enemy_placement_row == 5 and inital_enemy_placement_collum == 1:
-        enemy_rotation = random.randint(0,1)
-    elif inital_enemy_placement_row == 5 and inital_enemy_placement_collum == 5:
-        enemy_rotation = random.randint(0,1)
-    if enemy_rotation == 1:
-        enemy_rotation = 3
-    if inital_enemy_placement_row == 1 and inital_enemy_placement_collum == 1:
-        enemy_rotation = random.randint(2,3)
     elif inital_enemy_placement_row == 1 and inital_enemy_placement_collum == 5:
-        enemy_rotation = random.randint(1,2)
+        enemy_rotation = random.randint(2,3)
     elif inital_enemy_placement_row == 5 and inital_enemy_placement_collum == 1:
         enemy_rotation = random.randint(0,1)
     elif inital_enemy_placement_row == 5 and inital_enemy_placement_collum == 5:
@@ -160,22 +151,41 @@ def play_game():
     #Rating based on how many turns it took
     if turns <= 5:
         print("Rating: AMAZING! You got lucky!")
+        with open("score.csv","w") as scorefile:
+            scorefile.readlines
+            scorefile.write(f"{gamenumber},{turns}\n")
+        scorefile.close
     elif turns <= 10:
         print("Rating: Great job!")
+        with open("score.csv","w") as scorefile:
+            scorefile.readlines
+            scorefile.write(f"{gamenumber},{turns}\n")
+            scorefile.close
     elif turns <= 15:
         print("Rating: Good work!")
+        with open("score.csv","w") as scorefile:
+            scorefile.readlines
+            scorefile.write(f"{gamenumber},{turns}\n")
+        scorefile.close
     else:
         print("Rating: You got there eventually!")
+        with open("score.csv","w") as scorefile:
+            scorefile.readlines
+            scorefile.write(f"{gamenumber},{turns}\n")
+        scorefile.close
 
 #Ask if player wants to play again
-def main():
-    play_again = "yes"
-    while play_again == "yes":
-        play_game()
-        print()
-        play_again = input("Do you want to play again? (yes/no): ")
-        play_again = play_again.lower() #make it lowercase so YES and Yes work too
-    print("Thanks for playing!")
+gamenumber = 1
+play_again = "yes"
+scorefile = open("score.csv","w")
+scorefile.close
+while play_again == "yes":
+    play_game()
+    print()
+    play_again = input("Do you want to play again? (yes/no): ")
+    play_again = play_again.lower() #make it lowercase so YES and Yes work too
+    gamenumber +=1
+print("Thanks for playing!")
 
 #Run the game
-main()
+gamenumber = 1
