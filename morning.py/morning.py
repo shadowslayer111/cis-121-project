@@ -10,8 +10,7 @@ def print_gameboard(gameboard): #prints the gameboard when the gameboard is pass
         for collom in range(1,6):
             print(gameboard[row,collom],end="  ")
         print()
-game_board = create_board(5) #hardcodes the gameboard size, maybe make it dynamic later
-#Very jankey way to do exention with 0 being up,1 being right,2 being down and 3 being left
+#Very bad way to do exention with 0 being up,1 being right,2 being down and 3 being left but it works
 def rotation_num_to_position(inital_pos,rotation_num):
     if rotation_num == 0:
         extention_position = int(inital_pos[0][0]) - 1
@@ -26,8 +25,9 @@ def rotation_num_to_position(inital_pos,rotation_num):
         extention_position = int(inital_pos[0][2]) - 1
         return f"{inital_pos[0][0]},{extention_position}"
 
-#Makes an enemy with and outputs a list with the cordinates of the two positions the ship is in    
+#Makes an enemy and outputs a list with the cordinates of the two positions the ship is in    
 def make_enemy():
+    #Inital placement
     inital_enemy_placement_row = random.randint(1,5)
     inital_enemy_placement_collum = random.randint(1,5)
     enemy_rotation = random.randint(0,3)
@@ -44,20 +44,7 @@ def make_enemy():
         enemy_rotation = random.randint(0,2)
         if enemy_rotation == 1:
             enemy_rotation = 3
-        if inital_enemy_placement_row == 1:
-            enemy_rotation = random.randint(1,3)
-        elif inital_enemy_placement_row == 5:
-            enemy_rotation = random.randint(0,2)
-            if enemy_rotation == 2:
-                enemy_rotation = 3
-    if inital_enemy_placement_collum == 1:
-        enemy_rotation = random.randint(0,2)
-    elif inital_enemy_placement_collum == 5:
-        enemy_rotation = random.randint(0,2)
-        if enemy_rotation == 1:
-            enemy_rotation = 3
     #For edge cases if the selection is in the corner
-    #Very jankey way to do exention with 0 being up,1 being right,2 being down and 3 being left
     if inital_enemy_placement_row == 1 and inital_enemy_placement_collum == 1:
         enemy_rotation = random.randint(1,2)
     elif inital_enemy_placement_row == 1 and inital_enemy_placement_collum == 5:
@@ -68,6 +55,7 @@ def make_enemy():
         enemy_rotation = random.randint(0,1)
         if enemy_rotation == 1:
             enemy_rotation = 3
+    #Enemy ship format is string with {"First position","Second position"} being the format
     enemy_placement = [f"{inital_enemy_placement_row},{inital_enemy_placement_collum}"]
     enemy_placement.append(str(rotation_num_to_position(enemy_placement,enemy_rotation)))
     return enemy_placement
@@ -151,31 +139,23 @@ def play_game():
     #Rating based on how many turns it took
     if turns <= 5:
         print("Rating: AMAZING! You got lucky!")
-        with open("score.csv","a") as scorefile:
-            scorefile.write(f"{gamenumber},{turns}\n")
-        scorefile.close()
     elif turns <= 10:
         print("Rating: Great job!")
-        with open("score.csv","a") as scorefile:
-            scorefile.write(f"{gamenumber},{turns}\n")
-            scorefile.close()
     elif turns <= 15:
         print("Rating: Good work!")
-        with open("score.csv","a") as scorefile:
-            scorefile.write(f"{gamenumber},{turns}\n")
-        scorefile.close()
     else:
         print("Rating: You got there eventually!")
-        with open("score.csv","a") as scorefile:
-            scorefile.write(f"{gamenumber},{turns}\n")
-        scorefile.close()
+    #Writes the score of the current game to the file score.csv
+    scorefile.write(f"{gamenumber},{turns}\n")
+    scorefile.close()
 
-#Ask if player wants to play again
+#Setup variables to make the game work
+game_board = create_board(5)
 gamenumber = 1
 play_again = "yes"
 scorefile = open("score.csv","w")
 scorefile.write("Gamenumber,Turns")
-scorefile.close()
+#Main game loop
 while play_again == "yes":
     play_game()
     print()
@@ -183,6 +163,3 @@ while play_again == "yes":
     play_again = play_again.lower() #make it lowercase so YES and Yes work too
     gamenumber +=1
 print("Thanks for playing!")
-
-#Run the game
-gamenumber = 1
