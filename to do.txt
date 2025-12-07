@@ -1,4 +1,0 @@
-﻿Still to do
-hit dection
-main game loop
-Makeing sure you win
